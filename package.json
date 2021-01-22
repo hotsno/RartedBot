@@ -1,0 +1,24 @@
+{
+  "name": "rartedbot",
+  "version": "1.0.0",
+  "description": "First(ish) Discord bot",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/akulakovsky/RartedBot.git"
+  },
+  "author": "SGG",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/akulakovsky/RartedBot/issues"
+  },
+  "homepage": "https://github.com/akulakovsky/RartedBot#readme",
+  "dependencies": {
+    "discord.js": "^12.2.0",
+    "minecraft-server-util": "^1.1.0",
+    "nconf": "^0.10.0"
+  }
+}
