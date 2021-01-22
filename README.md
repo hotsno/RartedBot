@@ -1,5 +1,5 @@
 # RartedBot
-First(ish) Discord bot
+A Discord bot, mainly for use in the Rarted server.
 
-# Link to add RartedBot to your server
-https://discordapp.com/oauth2/authorize?client_id=700200370286362644&scope=bot&permissions=8
+## Add RartedBot to your own server!
+Use [this](https://discordapp.com/oauth2/authorize?client_id=700200370286362644&scope=bot&permissions=8) link.
