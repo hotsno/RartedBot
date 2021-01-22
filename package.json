@@ -1,24 +1,21 @@
 {
+  "engines": {
+    "node": "12.16.2"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
   "name": "rartedbot",
   "version": "1.0.0",
   "description": "First(ish) Discord bot",
   "main": "main.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/akulakovsky/RartedBot.git"
-  },
-  "author": "SGG",
+  "author": "hotsno",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/akulakovsky/RartedBot/issues"
-  },
-  "homepage": "https://github.com/akulakovsky/RartedBot#readme",
   "dependencies": {
-    "discord.js": "^12.2.0",
-    "minecraft-server-util": "^1.1.0",
+    "discord.js": "*",
+    "express": "^4.17.1",
+    "minecraft-server-util": "^1.2.0",
     "nconf": "^0.10.0"
   }
 }

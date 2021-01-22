@@ -1,14 +1,15 @@
 const Discord = require('discord.js');
 const ping = require('minecraft-server-util');
-const nconf = require('nconf');
 const config = require('./config.json');
-const private = require('./private.json');
+const token = process.env.BOT_TOKEN;
+const nconf = require('nconf');
 const copypastas = require('./copypastas.json');
 const valRanks = require('./valRanks.json');
 const bot = new Discord.Client();
 const PREFIX = '>';
-const valEmojiIds = ['<:Iron1:705933781487321120>', "<:Iron2:705933781609218139>", "<:Iron3:705933781990899803>", "<:Bronze1:705933780103463033>", "<:Bronze2:705933779990085642>", "<:Bronze3:705933780027834389>", "<:Gold1:705933781605023824>", "<:Gold2:705933781726658630>", "<:Gold3:705933781881847970>", "<:Platinum:705933782305210408>", "<:Diamond:705933779977502722>", "<:Valorant:705933781940437091>"];
-const valRanksList = ['Iron1', 'Iron2', 'Iron3','Bronze1', 'Bronze2', 'Gold1', 'Gold2', 'Gold3', 'Platinum1', 'Platinum2', 'Platinum3', 'Diamond1', 'Diamond2', 'Diamond3', 'Valorant'];
+const keepAlive = require('./server');
+const valRanksList = ['Iron1', 'Iron2', 'Iron3','Bronze1', 'Bronze2','Bronze3', 'Silver1', 'Silver2', 'Silver3', 'Gold1', 'Gold2', 'Gold3', 'Platinum1', 'Platinum2', 'Platinum3', 'Diamond1', 'Diamond2', 'Diamond3', 'Immortal1', 'Immortal2','Immortal3','Valorant'];
+const valEmojiIds = ['<:Iron1:705933781487321120>', "<:Iron2:705933781609218139>", "<:Iron3:705933781990899803>", "<:Bronze1:705933780103463033>", "<:Bronze2:705933779990085642>", "<:Bronze3:705933780027834389>", "<:Silver1:705933781390983179>", "<:Silver2:705933781579857991>", "<:Silver3:705933781445640276>", "<:Gold1:705933781605023824>", "<:Gold2:705933781726658630>", "<:Gold3:705933781881847970>", "<:Platinum:705933782305210408>", "<:Platinum:705933782305210408>", "<:Platinum:705933782305210408>", "<:Diamond:705933779977502722>", "<:Diamond:705933779977502722>","<:Diamond:705933779977502722>", "<:Immortal:705933781856419940>", "<:Immortal:705933781856419940>", "<:Immortal:705933781856419940>", "<:Valorant:705933781940437091>"];
 
 bot.on('ready', () => {
   console.log('Bot loaded');
@@ -17,8 +18,8 @@ bot.on('ready', () => {
 
 bot.on('message', msg => {
   let args = msg.content.substring(PREFIX.length).split(' ');
-
-  if (msg.content.includes('<@!700847776778682468>')) help(args, msg);
+  
+  if (msg.content.includes('<@!700200370286362644>')) help(args, msg);
   if (!msg.content.startsWith(PREFIX)) return;
 
   switch (args[0]) {
@@ -30,9 +31,9 @@ bot.on('message', msg => {
       help(args, msg);
       break;
 
-    case "clear":
-      clear(args, msg);
-      break;
+    // case "clear":
+    //   clear(args, msg);
+    //   break;
 
     case "todo":
       todo(args, msg);
@@ -41,9 +42,10 @@ bot.on('message', msg => {
     case "copy":
       copy(args, msg);
       break;
+      
     case "valorant":
       valorant(args, msg);
-      break;
+      break; 
   }
 });
 
@@ -95,9 +97,10 @@ function help(args, msg) {
       { name: 'Clear', value: '`>clear`', inline: true },
       { name: 'To-do List', value: '`>todo`', inline: true },
       { name: 'Copypastas', value: '`>copy`', inline: true },
+      { name: 'Valorant', value: '`>valorant`', inline: true },
     )
     .setTimestamp()
-    .setFooter('made by @sgg.#0001', config.botPfp)
+    .setFooter('made by @sgg#6969', config.botPfp)
   msg.channel.send(embed);
 }
 
@@ -109,16 +112,18 @@ function helpSyntax(args, msg) {
     case 'mc':
       syntax = 'Minecraft server status:\n`>mc [IP address] [port number (optional)]`';
       break;
-
     case 'clear':
       syntax = 'Clear messages:\n`>clear [number of items to clear]`';
       break;
-
     case 'todo':
       syntax = 'Add item to to-do list:\n`>todo [item to add to to-do list]`\n\nRemove item from to-do list:\n`>todo del [number of item in to-do list]`\n\nClear to-do list:\n`>todo clear`\n\nView to-do list:\n`>todo`';
       break;
     case 'copy':
-      syntax = 'Select a copypasta:\n`>copy [copypasta name]`\n\nCopypasta names:\n```\n - bruh\n - quarantaang\n```';
+      syntax = 'Select a copypasta:\n`>copy [copypasta name]`\n\nCopypasta names:\n```\n - yep\n - gamer-girl\n - bruh\n - bruh-2\n - quarantaang\n - simp\n - woosh\n - frick-myself\n - normie-troll\n - ahegao\n```';
+      break;
+    case 'valorant':
+      syntax = 'Set or change your rank:\n`>valorant rank set [rank]`\n\nRank syntax: `Ex. Iron1`\n\nCheck VALORANT rank:\n`>valorant rank`\nor\n`>valorant rank @username`';
+      break;
   }
   msg.reply("\n" + syntax);
 }
@@ -205,11 +210,41 @@ function copy(args, msg) {
   
   let text = 'Enter a valid copypasta name! Use `>help copy` to find available copypastas!';
   switch (args[1]) {
+    case 'johnwick':
+      text = copypastas.johnwick;
+      break;
     case 'bruh':
       text = copypastas.bruh;
       break;
+    case 'bruh-2':
+      text = copypastas.bruh2;
+      break;
     case 'quarantaang':
       text = copypastas.quarantaang;
+      break;
+    case 'woosh':
+      text = copypastas.woosh;
+      break;
+    case 'simp':
+      text = copypastas.simp;
+      break;
+    case 'frick-myself':
+      text = copypastas.frick;
+      break;
+    case 'yev':
+      text = copypastas.yev;
+      break;
+    case 'normie-troll':
+      text = copypastas.normie;
+      break;
+    case 'ahegao':
+      text = copypastas.ahegao;
+      break;
+    case 'gamer-girl':
+      text = copypastas.girlgamer;
+      break;
+    case 'yep':
+      text = copypastas.yep;
       break;
   }
   msg.channel.send(text);
@@ -233,13 +268,11 @@ function valRank(args, msg) {
       return;
     }
     if(!valRanksList.includes(args[3])) {
-      msg.reply('invalid rank rank! For help use `>help valorant set`');
+      msg.reply('invalid rank! For help use `>help valorant set`');
       return;
     }
     nconf.set(id, args[3]);
     nconf.save();
-    console.log('here');
-    return;
   }
   if(msg.mentions.users.first() !== undefined) id = msg.mentions.users.first().id;
   if(nconf.get(id) === undefined) {
@@ -248,6 +281,8 @@ function valRank(args, msg) {
   }
   var num = nconf.get(id).match(/\d+/g);
   var letr = nconf.get(id).match(/[a-zA-Z]+/g);
+  if(num === null) num = '';
   msg.channel.send('<@' + id + '>\'s rank is ' + letr + ' ' + num + ' ' + valEmojiIds[valRanksList.indexOf(nconf.get(id))]);
 }
-bot.login(private.token);
+keepAlive();
+bot.login(token);
