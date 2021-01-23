@@ -31,13 +31,15 @@ bot.on('message', msg => {
       help(args, msg);
       break;
 
+    // These 2 commands can be exploited:
+
     // case "clear":
     //   clear(args, msg);
     //   break;
 
-    case "todo":
-      todo(args, msg);
-      break;
+    // case "todo":
+    //   todo(args, msg);
+    //   break;
 
     case "copy":
       copy(args, msg);
@@ -94,13 +96,13 @@ function help(args, msg) {
     .addFields(
       { name: 'Syntax', value: '`>help <command>`', inline: true },
       { name: 'MC Server Status', value: '`>mc`', inline: true },
-      { name: 'Clear', value: '`>clear`', inline: true },
-      { name: 'To-do List', value: '`>todo`', inline: true },
+      // { name: 'Clear', value: '`>clear`', inline: true },
+      // { name: 'To-do List', value: '`>todo`', inline: true },
       { name: 'Copypastas', value: '`>copy`', inline: true },
       { name: 'Valorant', value: '`>valorant`', inline: true },
     )
     .setTimestamp()
-    .setFooter('made by @sgg#6969', config.botPfp)
+    .setFooter('made by @hotsno#0013', config.botPfp)
   msg.channel.send(embed);
 }
 
@@ -112,12 +114,12 @@ function helpSyntax(args, msg) {
     case 'mc':
       syntax = 'Minecraft server status:\n`>mc [IP address] [port number (optional)]`';
       break;
-    case 'clear':
-      syntax = 'Clear messages:\n`>clear [number of items to clear]`';
-      break;
-    case 'todo':
-      syntax = 'Add item to to-do list:\n`>todo [item to add to to-do list]`\n\nRemove item from to-do list:\n`>todo del [number of item in to-do list]`\n\nClear to-do list:\n`>todo clear`\n\nView to-do list:\n`>todo`';
-      break;
+    // case 'clear':
+    //   syntax = 'Clear messages:\n`>clear [number of items to clear]`';
+    //   break;
+    // case 'todo':
+    //   syntax = 'Add item to to-do list:\n`>todo [item to add to to-do list]`\n\nRemove item from to-do list:\n`>todo del [number of item in to-do list]`\n\nClear to-do list:\n`>todo clear`\n\nView to-do list:\n`>todo`';
+    //   break;
     case 'copy':
       syntax = 'Select a copypasta:\n`>copy [copypasta name]`\n\nCopypasta names:\n```\n - yep\n - gamer-girl\n - bruh\n - bruh-2\n - quarantaang\n - simp\n - woosh\n - frick-myself\n - normie-troll\n - ahegao\n```';
       break;
