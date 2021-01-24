@@ -4,7 +4,6 @@ const config = require('./config.json');
 const token = process.env.BOT_TOKEN;
 const nconf = require('nconf');
 const copypastas = require('./copypastas.json');
-const valRanks = require('./valRanks.json');
 const bot = new Discord.Client();
 const PREFIX = '>';
 const keepAlive = require('./server');
