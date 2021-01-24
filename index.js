@@ -9,7 +9,6 @@ const bot = new Discord.Client();
 const PREFIX = '>';
 const keepAlive = require('./server');
 const valRanksList = ['Iron1', 'Iron2', 'Iron3','Bronze1', 'Bronze2','Bronze3', 'Silver1', 'Silver2', 'Silver3', 'Gold1', 'Gold2', 'Gold3', 'Platinum1', 'Platinum2', 'Platinum3', 'Diamond1', 'Diamond2', 'Diamond3', 'Immortal1', 'Immortal2','Immortal3','Valorant'];
-const valEmojiIds = ['<:Iron1:705933781487321120>', "<:Iron2:705933781609218139>", "<:Iron3:705933781990899803>", "<:Bronze1:705933780103463033>", "<:Bronze2:705933779990085642>", "<:Bronze3:705933780027834389>", "<:Silver1:705933781390983179>", "<:Silver2:705933781579857991>", "<:Silver3:705933781445640276>", "<:Gold1:705933781605023824>", "<:Gold2:705933781726658630>", "<:Gold3:705933781881847970>", "<:Platinum:705933782305210408>", "<:Platinum:705933782305210408>", "<:Platinum:705933782305210408>", "<:Diamond:705933779977502722>", "<:Diamond:705933779977502722>","<:Diamond:705933779977502722>", "<:Immortal:705933781856419940>", "<:Immortal:705933781856419940>", "<:Immortal:705933781856419940>", "<:Valorant:705933781940437091>"];
 
 bot.on('ready', () => {
   console.log('Bot loaded');
@@ -284,7 +283,7 @@ function valRank(args, msg) {
   var num = nconf.get(id).match(/\d+/g);
   var letr = nconf.get(id).match(/[a-zA-Z]+/g);
   if(num === null) num = '';
-  msg.channel.send('<@' + id + '>\'s rank is ' + letr + ' ' + num + ' ' + valEmojiIds[valRanksList.indexOf(nconf.get(id))]);
+  msg.channel.send('<@' + id + '>\'s rank is ' + letr + ' ' + num);
 }
 keepAlive();
 bot.login(token);
