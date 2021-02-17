@@ -3,6 +3,7 @@ const ping = require('minecraft-server-util');
 const config = require('./config.json');
 const token = process.env.BOT_TOKEN;
 const nconf = require('nconf');
+const fs = require('fs');
 const copypastas = require('./copypastas.json');
 const bot = new Discord.Client();
 const PREFIX = '>';
@@ -18,6 +19,7 @@ bot.on('message', msg => {
   let args = msg.content.substring(PREFIX.length).split(' ');
   
   if (msg.content.includes('<@!700200370286362644>')) help(args, msg);
+  if (msg.channel.id == "801024508278341662") dictionary(msg);
   if (!msg.content.startsWith(PREFIX)) return;
 
   switch (args[0]) {
@@ -112,14 +114,8 @@ function helpSyntax(args, msg) {
     case 'mc':
       syntax = 'Minecraft server status:\n`>mc [IP address] [port number (optional)]`';
       break;
-    // case 'clear':
-    //   syntax = 'Clear messages:\n`>clear [number of items to clear]`';
-    //   break;
-    // case 'todo':
-    //   syntax = 'Add item to to-do list:\n`>todo [item to add to to-do list]`\n\nRemove item from to-do list:\n`>todo del [number of item in to-do list]`\n\nClear to-do list:\n`>todo clear`\n\nView to-do list:\n`>todo`';
-    //   break;
     case 'copy':
-      syntax = 'Select a copypasta:\n`>copy [copypasta name]`\n\nCopypasta names:\n```\n - yep\n - gamer-girl\n - bruh\n - bruh-2\n - quarantaang\n - simp\n - woosh\n - frick-myself\n - normie-troll\n - ahegao\n```';
+      syntax = 'CURRENTLY NOT UPDATED!!\nSelect a copypasta:\n`>copy [copypasta name]`\n\nCopypasta names:\n```\n - yep\n - gamer-girl\n - bruh\n - bruh-2\n - quarantaang\n - simp\n - woosh\n - frick-myself\n - normie-troll\n - ahegao\n - cheeseburger\n - warthunder\n - impostor\n - wholesome\n```';
       break;
     case 'valorant':
       syntax = 'Set or change your rank:\n`>valorant rank set [rank]`\n\nRank syntax: `Ex. Iron1`\n\nCheck VALORANT rank:\n`>valorant rank`\nor\n`>valorant rank @username`';
@@ -207,47 +203,35 @@ function copy(args, msg) {
     msg.reply('put the name of the copypasta after `>copy`!');
     return;
   }
-  
-  let text = 'Enter a valid copypasta name! Use `>help copy` to find available copypastas!';
-  switch (args[1]) {
-    case 'johnwick':
-      text = copypastas.johnwick;
-      break;
-    case 'bruh':
-      text = copypastas.bruh;
-      break;
-    case 'bruh-2':
-      text = copypastas.bruh2;
-      break;
-    case 'quarantaang':
-      text = copypastas.quarantaang;
-      break;
-    case 'woosh':
-      text = copypastas.woosh;
-      break;
-    case 'simp':
-      text = copypastas.simp;
-      break;
-    case 'frick-myself':
-      text = copypastas.frick;
-      break;
-    case 'yev':
-      text = copypastas.yev;
-      break;
-    case 'normie-troll':
-      text = copypastas.normie;
-      break;
-    case 'ahegao':
-      text = copypastas.ahegao;
-      break;
-    case 'gamer-girl':
-      text = copypastas.girlgamer;
-      break;
-    case 'yep':
-      text = copypastas.yep;
-      break;
+  if(args[1] == "add") {
+    addCopyPasta(args, msg);
+    return;
   }
+  
+  let text;
+  nconf.use('file', { file: './copypastas.json' });
+  nconf.load();
+  text = nconf.get(args[1]);
+  if(text === undefined) {
+    text = 'Enter a valid copypasta name! Use `>help copy` to find available copypastas!';
+  }
+
   msg.channel.send(text);
+}
+
+function addCopyPasta(args, msg) {
+  if(msg.author.id != "707743097488146524") {
+    msg.channel.send("lol you can't do that idiot")
+    return;
+  }
+  let copypastaName = args[2];
+  let copypasta = msg.content.substring(11 + args[2].length);
+
+  nconf.use('file', { file: './copypastas.json' });
+  nconf.load();
+  nconf.set(copypastaName, copypasta);
+  nconf.save();
+  msg.channel.send("Added!")
 }
 
 function valorant(args, msg) {
@@ -284,5 +268,18 @@ function valRank(args, msg) {
   if(num === null) num = '';
   msg.channel.send('<@' + id + '>\'s rank is ' + letr + ' ' + num);
 }
+
+function dictionary(msg) {
+  let i = 0
+  let num = 0
+  const stream = fs.createReadStream('./text.txt')
+  stream.pipe().on("data", (data) => foo(data, ++i))
+
+  const foo = (data, line) => {
+    consle.log("Data: ", data)
+    consle.log("Line number:", line)
+  }
+}
+
 keepAlive();
 bot.login(token);
